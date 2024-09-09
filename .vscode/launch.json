@@ -4,8 +4,7 @@
     {
       "label": "Cache Styles",
       "type": "shell",
-      "command": "cd gewinnerProject && npx tailwindcss -i ./static/src/input.css -o ./static/src/output.css --watch", // Replace with your command
-      "problemMatcher": []
+      "command": "cd gewinnerProject && npx tailwindcss -i ./static/src/input.css -o ./static/src/output.css --watch"
     }
   ],
   "configurations": [
