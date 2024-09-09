@@ -1,0 +1,53 @@
+{% extends "_base.html" %} {% block content %}
+<div class="bg-base-100">
+  <!-- Subtle Hero Section -->
+  <div class="py-12 bg-base-200">
+    <div class="max-w-5xl mx-auto text-center">
+      <h1 class="text-4xl font-bold text-primary">
+        Caregiver Scheduling Made Simple
+      </h1>
+      <p class="py-4 text-lg text-base-content">
+        Easily manage patients, caregivers, and schedules all in one place. Get
+        started today!
+      </p>
+      <a href="{% url 'login' %}" class="btn btn-primary mt-4"
+        >Login to Get Started</a
+      >
+    </div>
+  </div>
+
+  <!-- Why Choose Us Section -->
+  <div class="py-12 bg-base-100">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-primary">Why Choose Us?</h2>
+      <p class="mt-4 text-base-content">
+        Here’s how we help you simplify caregiving tasks.
+      </p>
+    </div>
+
+    <!-- Feature Cards -->
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto"
+    >
+      <div class="card bg-primary text-primary-content shadow-xl">
+        <div class="card-body">
+          <h3 class="card-title">Manage Patients</h3>
+          <p>Easily add, update, and manage patient records in one place.</p>
+        </div>
+      </div>
+      <div class="card bg-secondary text-secondary-content shadow-xl">
+        <div class="card-body">
+          <h3 class="card-title">Track Caregivers</h3>
+          <p>Track caregiver schedules and assignments efficiently.</p>
+        </div>
+      </div>
+      <div class="card bg-accent text-accent-content shadow-xl">
+        <div class="card-body">
+          <h3 class="card-title">Schedule Management</h3>
+          <p>Create, edit, and assign caregiver schedules with ease.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

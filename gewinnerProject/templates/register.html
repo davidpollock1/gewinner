@@ -1,0 +1,103 @@
+{% extends "_base.html" %} {% block content %}
+<div
+  class="bg-white rounded-lg shadow-lg flex overflow-hidden w-full max-w-4xl mx-auto min-h-[50vh] p-12"
+>
+  <!-- Left Side: Image Placeholder -->
+  <div class="w-1/2 bg-gray-200">
+    <!-- Placeholder for the image -->
+    <div class="h-full flex items-center justify-center">
+      <div class="text-center">
+        <h3 class="text-3xl font-bold text-gray-500">Join Us Today!</h3>
+        <p class="text-gray-500">
+          Placeholder for an image or additional content.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side: Registration Form -->
+  <div class="w-1/2 p-8">
+    <h2 class="text-3xl font-semibold text-center mb-8">Register</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-control mb-4">
+        <input
+          type="text"
+          name="{{ form.username.name }}"
+          id="{{ form.username.id_for_label }}"
+          value="{{ form.username.value|default_if_none:'' }}"
+          class="input input-bordered w-full"
+          placeholder="Username"
+        />
+        {% if form.username.errors %}
+        <p class="text-red-500 text-sm">{{ form.username.errors }}</p>
+        {% endif %}
+      </div>
+
+      <div class="form-control mb-4">
+        <input
+          type="email"
+          name="{{ form.email.name }}"
+          id="{{ form.email.id_for_label }}"
+          value="{{ form.email.value|default_if_none:'' }}"
+          class="input input-bordered w-full"
+          placeholder="Email"
+        />
+        {% if form.email.errors %}
+        <p class="text-red-500 text-sm">{{ form.email.errors }}</p>
+        {% endif %}
+      </div>
+
+      <div class="form-control mb-4">
+        <input
+          type="password"
+          name="{{ form.password1.name }}"
+          id="{{ form.password1.id_for_label }}"
+          class="input input-bordered w-full"
+          placeholder="Password"
+        />
+        {% if form.password1.errors %}
+        <p class="text-red-500 text-sm">{{ form.password1.errors }}</p>
+        {% endif %}
+      </div>
+
+      <div class="form-control mb-4">
+        <input
+          type="password"
+          name="{{ form.password2.name }}"
+          id="{{ form.password2.id_for_label }}"
+          class="input input-bordered w-full"
+          placeholder="Confirm Password"
+        />
+        {% if form.password2.errors %}
+        <p class="text-red-500 text-sm">{{ form.password2.errors }}</p>
+        {% endif %}
+      </div>
+
+      <div class="form-control mb-4">
+        <input
+          type="text"
+          name="{{ form.tenant_id.name }}"
+          id="{{ form.tenant_id.id_for_label }}"
+          value="{{ form.tenant_id.value|default_if_none:'' }}"
+          class="input input-bordered w-full"
+          placeholder="Tenant ID"
+        />
+        {% if form.tenant_id.errors %}
+        <p class="text-red-500 text-sm">{{ form.tenant_id.errors }}</p>
+        {% endif %}
+      </div>
+
+      <div class="form-control mt-6">
+        <button type="submit" class="btn btn-primary w-full">Register</button>
+      </div>
+    </form>
+    <p class="text-sm text-center mt-4">
+      Already have an account?
+      <a href="{% url 'login' %}" class="text-primary hover:underline"
+        >Login here</a
+      >.
+    </p>
+  </div>
+</div>
+{% endblock %}

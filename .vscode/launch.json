@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "tasks": [
+    {
+      "label": "Cache Styles",
+      "type": "shell",
+      "command": "cd gewinnerProject && npx tailwindcss -i ./static/src/input.css -o ./static/src/output.css --watch", // Replace with your command
+      "problemMatcher": []
+    }
+  ],
+  "configurations": [
+    {
+      "name": "Python Debugger: Django",
+      "type": "debugpy",
+      "request": "launch",
+      "args": ["runserver"],
+      "django": true,
+      "autoStartBrowser": false,
+      "program": "${workspaceFolder}/gewinnerProject/manage.py"
+    }
+  ]
+}
