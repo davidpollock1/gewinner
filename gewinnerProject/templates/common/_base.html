@@ -1,0 +1,97 @@
+{% load compress %} {% load static %}
+
+<!DOCTYPE html>
+<html data-theme="nord" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>gewinner</title>
+
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}" />
+    {% endcompress %}
+  </head>
+
+  <body class="flex flex-col min-h-screen">
+    <div class="navbar bg-neutral text-neutral-content">
+      <div class="navbar-start">
+        <button class="btn btn-ghost text-l">
+          <a href="{% url 'home' %}">gewinner</a>
+        </button>
+      </div>
+
+      <div class="navbar-center"></div>
+
+      <div class="navbar-end">
+        {% if user.is_authenticated %}
+        <div class="flex-none gap-2">
+          <div class="dropdown dropdown-end">
+            <div
+              tabindex="0"
+              role="button"
+              class="btn btn-ghost btn-circle avatar"
+            >
+              <div class="w-10 rounded-full">
+                <img alt="" src="https://www.gravatar.com/avatar/?d=mp" />
+              </div>
+            </div>
+            <ul
+              tabindex="0"
+              class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            >
+              <!-- Settings option -->
+              <li>
+                <a
+                  href="{% url 'user_settings' %}"
+                  class="text-base-content font-semibold"
+                >
+                  Settings
+                </a>
+              </li>
+
+              <!-- Logout option-->
+              <li>
+                <a
+                  href="#"
+                  onclick="document.getElementById('logout-form').submit(); return false;"
+                  class="text-base-content font-semibold"
+                >
+                  Logout
+                </a>
+              </li>
+
+              <!-- Hidden logout form -->
+              <form
+                id="logout-form"
+                method="POST"
+                action="{% url 'logout' %}"
+                style="display: none"
+              >
+                {% csrf_token %}
+              </form>
+            </ul>
+          </div>
+        </div>
+        {% else %}
+        <button class="btn btn-sm btn-ghost text-l">
+          <a href="{% url 'login' %}">Login</a>
+        </button>
+        <button class="btn btn-sm btn-primary text-l">
+          <a href="{% url 'register' %}">Register</a>
+        </button>
+        {% endif %}
+      </div>
+    </div>
+    <main class="container mx-auto py-8 flex-grow">
+      {% block content %}
+      <!-- Page-specific content goes here -->
+      {% endblock %}
+    </main>
+    <footer class="footer footer-center bg-base-300 text-base-content p-2">
+      <aside>
+        <p>Copyright © {% now "Y" %} - All right reserved by gewinner</p>
+      </aside>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+{% extends 'common/_base.html' %}
+<!-- Extend your base template -->
+
+{% block content %}
+<div class="container mx-auto py-8">
+  <div class="max-w-lg mx-auto bg-base-100 shadow-lg rounded-lg p-8">
+    <!-- Title -->
+    <h2 class="text-3xl font-bold mb-6 text-center">User Settings</h2>
+
+    <!-- Display success/error messages -->
+    {% if messages %}
+    <div class="alert alert-success mb-4">
+      {% for message in messages %}
+      <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- User settings form -->
+    <form method="POST">
+      {% csrf_token %}
+
+      <!-- Form Fields -->
+      <div class="space-y-4">
+        {% for field in form %}
+        <div class="form-control">
+          {{ field.label_tag }}
+          <!-- Field Label -->
+          {{ field }}
+          <!-- Field Input -->
+          {% if field.errors %}
+          <span class="text-error">{{ field.errors|striptags }}</span>
+          <!-- Field Errors -->
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-center mt-6">
+        <button type="submit" class="btn btn-primary w-full">
+          Save Changes
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

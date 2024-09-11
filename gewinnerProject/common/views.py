@@ -8,3 +8,4 @@ class HomeView(TemplateView):
             return ["common/dashboard.html"]
         else:
             return [self.template_name]
+        
