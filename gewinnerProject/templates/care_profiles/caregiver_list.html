@@ -1,0 +1,78 @@
+{% extends 'common/_base.html' %} {% block content %}
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-bold mb-4">Caregiver List</h1>
+  <div class="flex justify-start mb-4 p-4">
+    <div class="mr-2">
+      <a
+        href="{% url 'care_profiles:caregiver_create' %}"
+        class="btn btn-primary btn-sm"
+      >
+        + Create New Caregiver
+      </a>
+    </div>
+    <div class="ml-2">
+      <a
+        href="{% url 'care_profiles:care_plan_create' %}"
+        class="btn btn-secondary btn-sm"
+      >
+        + Create New Care Plan
+      </a>
+    </div>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="table table-striped table-bordered table-zebra">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Date of Birth</th>
+          <th>Gender</th>
+          <th>Type</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for caregiver in caregivers %}
+        <tr>
+          <td>{{ caregiver.first_name }}</td>
+          <td>{{ caregiver.last_name }}</td>
+          <td>{{ caregiver.phone_number }}</td>
+          <td>{{ caregiver.email }}</td>
+          <td>{{ caregiver.date_of_birth }}</td>
+          <td>{{ caregiver.gender }}</td>
+          <td>{{ caregiver.type }}</td>
+          <td>
+            <a
+              href="{% url 'care_profiles:caregiver_update' caregiver.pk %}"
+              class="btn btn-secondary"
+              >Edit</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="flex justify-end mb-4 p-4">
+    <div class="mr-2">
+      <a
+        href="{% url 'care_profiles:caregiver_create' %}"
+        class="btn btn-primary btn-sm"
+      >
+        + Create New Caregiver
+      </a>
+    </div>
+    <div class="ml-2">
+      <a
+        href="{% url 'care_profiles:care_plan_create' %}"
+        class="btn btn-secondary btn-sm"
+      >
+        + Create New Care Plan
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

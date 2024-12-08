@@ -1,0 +1,135 @@
+{% extends 'common/_base.html' %} {% block content %}
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-bold mb-4">Create Care Plan</h1>
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
+    <div class="grid grid-cols-2 gap-4">
+      <div class="form-control">
+        <label class="label" for="id_caregiver">Caregiver</label>
+        {{ care_plan_form.caregiver }}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_patient">Patient</label>
+        {{ care_plan_form.patient }}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_start_date">Start Date</label>
+        {{ care_plan_form.start_date }}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_end_date">End Date</label>
+        {{ care_plan_form.end_date }}
+      </div>
+    </div>
+    <h2 class="text-2xl font-bold mt-6">Care Plan Tasks</h2>
+
+    <div id="task-formset" class="shadow-lg bg-base-100 p-6 rounded-lg">
+      {{ task_formset.management_form }} {% for form in task_formset %}
+      <div
+        class="card p-4 task-form {% if not form.instance.pk %}hidden empty-form{% endif %}"
+      >
+        <div
+          class="grid grid-cols-1 lg:grid-cols-2 gap-6 shadow-md border border-primary"
+        >
+          <!-- Task Details -->
+          <div class="card p-4">
+            <div class="form-control">
+              <label class="label font-bold" for="{{ form.task.id_for_label }}"
+                >Task</label
+              >
+              {{ form.task }}
+            </div>
+            <div class="form-control">
+              <label
+                class="label font-bold"
+                for="{{ form.active.id_for_label }}"
+                >Active</label
+              >
+              {{ form.active }}
+            </div>
+          </div>
+
+          <!-- Right Side -->
+          <div class="card p-4">
+            <div class="form-control">
+              <label
+                class="label font-bold"
+                for="{{ form.frequency.id_for_label }}"
+                >Frequency</label
+              >
+              {{ form.frequency }}
+            </div>
+            <div class="form-control">
+              <label class="label font-bold" for="{{ form.time.id_for_label }}"
+                >Time</label
+              >
+              {{ form.time }}
+            </div>
+            <div class="form-control">
+              <label
+                class="label font-bold"
+                for="{{ form.date_time.id_for_label }}"
+                >Date Time</label
+              >
+              {{ form.date_time }}
+            </div>
+            <div class="form-control">
+              <label
+                class="label font-bold"
+                for="{{ form.day_of_week.id_for_label }}"
+                >Day of Week</label
+              >
+              {{ form.day_of_week }}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="mt-6 flex flex-col lg:flex-row gap-4">
+      <button
+        type="button"
+        class="btn btn-outline btn-secondary"
+        onclick="addTaskForm()"
+      >
+        Add Another Task
+      </button>
+    </div>
+    <div class="form-control mt-4">
+      <button type="submit" class="btn btn-primary w-full">
+      Save Care Plan
+      </button>
+    </div>
+    <input type="hidden" name="next" value="{% url 'care_profiles:create' %}">
+    </div>
+  </form>
+</div>
+
+<script>
+  function addTaskForm() {
+    const formset = document.getElementById("task-formset");
+    const totalForms = document.getElementById("id_tasks-TOTAL_FORMS");
+    const currentFormCount = parseInt(totalForms.value);
+    const newFormCount = currentFormCount + 1;
+    const emptyFormTemplate = document
+      .querySelector(".empty-form")
+      .cloneNode(true);
+    emptyFormTemplate.classList.remove("hidden");
+    emptyFormTemplate.classList.remove("empty-form");
+    emptyFormTemplate.innerHTML = emptyFormTemplate.innerHTML.replace(
+      /__prefix__/g,
+      currentFormCount
+    );
+    formset.insertBefore(emptyFormTemplate, formset.lastElementChild);
+    totalForms.value = newFormCount;
+  }
+
+  function removeTaskForm(button) {
+    const form = button.closest(".task-form");
+    form.remove();
+  }
+</script>
+
+{% endblock %}

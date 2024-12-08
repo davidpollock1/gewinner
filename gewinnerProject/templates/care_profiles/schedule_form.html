@@ -1,0 +1,77 @@
+{% extends 'common/_base.html' %} {% block content %}
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        text-align: left;
+        padding: 8px;
+        vertical-align: top;
+    }
+    th {
+        background-color: #f4f4f4;
+    }
+</style>
+<body>
+    <h1>Weekly Schedule</h1>
+    <div class="flex justify-between mb-4">
+        <a href="?date={{ previous_week }}" class="btn btn-secondary">Previous Week</a>
+        <span>{{ start_of_week }} - {{ end_of_week }}</span>
+        <a href="?date={{ next_week }}" class="btn btn-secondary">Next Week</a>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <table style="table-layout: fixed;">
+            <thead>
+            <tr>
+                {% for day in days_of_week %}
+                <th style="width: 14.28%;">{{ day }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% for day in days_of_week %}
+                <td style="width: 14.28%;">
+                    <h3>{{ day }}</h3>
+                    {% for form in formset.forms %}
+                    {% if form.instance.event_date_time|date:"l" == day %}
+                        <div class="styled-div bg-base-100 shadow-md border border-base-300 h-24 w-full
+                        {% if form.instance.care_plan_task.task.type == 'Homemaking' %}bg-primary
+                        {% elif form.instance.care_plan_task.task.type == 'Health Maintenance' %}bg-secondary
+                        {% elif form.instance.care_plan_task.task.type == 'Personal Care' %}bg-tertiary
+                        {% else %}bg-accent
+                        {% endif %}">
+                            <h2 class="styled-div-title text-sm truncate">{{ form.instance.care_plan_task.task.name }}</h2>
+                            <div class="styled-div-body">
+                                {% if form.instance.time %}
+                                <p class="text-xs">Time: {{ form.instance.time }}</p>
+                                {% endif %}
+                                <p class="text-xs">Complete?:
+                                    <input type="checkbox" class="toggle toggle-xs toggle-success" name="{{ form.prefix }}-is_completed" {% if form.instance.is_completed %}checked{% endif %} />
+                                </p>
+                                <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}">
+                            </div>
+                        </div>
+                        {% comment %} <div class="card card-side bg-base-100 shadow-md border border-base-300 h-24 w-full">
+                            <div class="card-body p-4">
+                              <h2 class="card-title text-sm text-primary truncate">Team Meeting</h2>
+                              <p class="text-xs text-secondary">10:00 AM</p>
+                              <p class="text-xs text-accent truncate">Type: Health Maintenance</p>
+                            </div>
+                          </div> {% endcomment %}
+                    {% endif %}
+                    {% endfor %}
+                </td>
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit">Save</button>
+    </form>
+</body>
+
+{% endblock %} 
+

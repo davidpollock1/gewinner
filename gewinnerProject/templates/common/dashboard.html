@@ -16,7 +16,7 @@
   >
     <!-- Manage Patients -->
     <a
-      href="{% url 'home' %}"
+      href="{% url 'care_profiles:patient_list' %}"
       class="bg-primary text-primary-content hover:bg-primary-focus p-6 rounded-lg shadow-md"
     >
       <h2 class="text-2xl font-semibold">Manage Patients</h2>
@@ -25,7 +25,7 @@
 
     <!-- Manage Caregivers -->
     <a
-      href="{% url 'home' %}"
+      href="{% url 'care_profiles:caregiver_list' %}"
       class="bg-secondary text-secondary-content hover:bg-secondary-focus p-6 rounded-lg shadow-md"
     >
       <h2 class="text-2xl font-semibold">Manage Caregivers</h2>
@@ -34,11 +34,19 @@
 
     <!-- Manage Schedules -->
     <a
-      href="{% url 'home' %}"
+      href="{% url 'care_profiles:care_plan_list' %}"
+      class="bg-accent text-accent-content hover:bg-accent-focus p-6 rounded-lg shadow-md"
+    >
+      <h2 class="text-2xl font-semibold">Manage Care Plans</h2>
+      <p class="mt-2">Create and update care plans for caregivers.</p>
+    </a>
+        <!-- Manage Schedules -->
+    <a
+      href="{% url 'care_profiles:schedule_list' %}"
       class="bg-accent text-accent-content hover:bg-accent-focus p-6 rounded-lg shadow-md"
     >
       <h2 class="text-2xl font-semibold">Manage Schedules</h2>
-      <p class="mt-2">Create and update schedules for caregivers.</p>
+      <p class="mt-2">View and complete schedules.</p>
     </a>
 
     <!-- View Reports -->

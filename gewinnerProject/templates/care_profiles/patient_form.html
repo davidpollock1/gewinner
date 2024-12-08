@@ -1,0 +1,262 @@
+{% extends 'common/_base.html' %} {% block content %}
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-bold mb-4">
+    {% if form.instance.pk %}Edit{% else %}Create{% endif %} Patient
+  </h1>
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
+    <div class="grid grid-cols-2 gap-4">
+      <div class="form-control">
+        <label class="label" for="id_caregiver">Primary Caregiver</label>
+        <select
+          name="caregiver"
+          id="id_caregiver"
+          class="input input-bordered w-3/4"
+        >
+          <option value="">---------</option>
+          {% for caregiver in form.caregiver.field.queryset %}
+            <option value="{{ caregiver.pk }}" {% if form.caregiver.value == caregiver.pk %}selected{% endif %}>
+              {{ caregiver.first_name }} {{ caregiver.last_name }}
+            </option>
+          {% endfor %}
+        </select>
+        {% if form.caregiver.errors %}
+          <p class="text-red-500 text-sm">{{ form.caregiver.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_first_name">First Name</label>
+        <input
+          type="text"
+          name="first_name"
+          id="id_first_name"
+          class="input input-bordered w-3/4"
+          value="{{ form.first_name.value|default_if_none:'' }}"
+        />
+        {% if form.first_name.errors %}
+        <p class="text-red-500 text-sm">{{ form.first_name.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_middle_name">Middle Name</label>
+        <input
+          type="text"
+          name="middle_name"
+          id="id_middle_name"
+          class="input input-bordered w-3/4"
+          value="{{ form.middle_name.value|default_if_none:'' }}"
+        />
+        {% if form.middle_name.errors %}
+        <p class="text-red-500 text-sm">{{ form.middle_name.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_last_name">Last Name</label>
+        <input
+          type="text"
+          name="last_name"
+          id="id_last_name"
+          class="input input-bordered w-3/4"
+          value="{{ form.last_name.value|default_if_none:'' }}"
+        />
+        {% if form.last_name.errors %}
+        <p class="text-red-500 text-sm">{{ form.last_name.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_date_of_birth">Date of Birth</label>
+        <input
+          type="date"
+          name="date_of_birth"
+          id="id_date_of_birth"
+          class="input input-bordered w-3/4"
+          value="{{ form.date_of_birth.value|date:'Y-m-d'|default_if_none:'' }}"
+        />
+        {% if form.date_of_birth.errors %}
+        <p class="text-red-500 text-sm">{{ form.date_of_birth.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_gender">Gender</label>
+        <select
+          name="gender"
+          id="id_gender"
+          class="select select-bordered w-3/4"
+        >
+          {% for choice in form.gender.field.choices %}
+          <option value="{{ choice.0 }}" {% if form.gender.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+          {% endfor %}
+        </select>
+        {% if form.gender.errors %}
+        <p class="text-red-500 text-sm">{{ form.gender.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_social_security_number"
+          >Social Security Number</label
+        >
+        <input
+          type="text"
+          name="social_security_number"
+          id="id_social_security_number"
+          class="input input-bordered w-3/4"
+          value="{{ form.social_security_number.value|default_if_none:'' }}"
+        />
+        {% if form.social_security_number.errors %}
+        <p class="text-red-500 text-sm">
+          {{ form.social_security_number.errors }}
+        </p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="id_email"
+          class="input input-bordered w-3/4"
+          value="{{ form.email.value|default_if_none:'' }}"
+        />
+        {% if form.email.errors %}
+        <p class="text-red-500 text-sm">{{ form.email.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_phone_number">Phone Number</label>
+        <input
+          type="text"
+          name="phone_number"
+          id="id_phone_number"
+          class="input input-bordered w-3/4"
+          value="{{ form.phone_number.value|default_if_none:'' }}"
+        />
+        {% if form.phone_number.errors %}
+        <p class="text-red-500 text-sm">{{ form.phone_number.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_address_line_1">Address Line 1</label>
+        <input
+          type="text"
+          name="address_line_1"
+          id="id_address_line_1"
+          class="input input-bordered w-3/4"
+          value="{{ form.address_line_1.value|default_if_none:'' }}"
+        />
+        {% if form.address_line_1.errors %}
+        <p class="text-red-500 text-sm">{{ form.address_line_1.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_address_line_2">Address Line 2</label>
+        <input
+          type="text"
+          name="address_line_2"
+          id="id_address_line_2"
+          class="input input-bordered w-3/4"
+          value="{{ form.address_line_2.value|default_if_none:'' }}"
+        />
+        {% if form.address_line_2.errors %}
+        <p class="text-red-500 text-sm">{{ form.address_line_2.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_zip_code">Zip Code</label>
+        <input
+          type="text"
+          name="zip_code"
+          id="id_zip_code"
+          class="input input-bordered w-3/4"
+          value="{{ form.zip_code.value|default_if_none:'' }}"
+        />
+        {% if form.zip_code.errors %}
+        <p class="text-red-500 text-sm">{{ form.zip_code.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_country">Country</label>
+        <input
+          type="text"
+          name="country"
+          id="id_country"
+          class="input input-bordered w-3/4"
+          value="{{ form.country.value|default_if_none:'' }}"
+        />
+        {% if form.country.errors %}
+        <p class="text-red-500 text-sm">{{ form.country.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_state">State</label>
+        <input
+          type="text"
+          name="state"
+          id="id_state"
+          class="input input-bordered w-3/4"
+          value="{{ form.state.value|default_if_none:'' }}"
+        />
+        {% if form.state.errors %}
+        <p class="text-red-500 text-sm">{{ form.state.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_city">City</label>
+        <input
+          type="text"
+          name="city"
+          id="id_city"
+          class="input input-bordered w-3/4"
+          value="{{ form.city.value|default_if_none:'' }}"
+        />
+        {% if form.city.errors %}
+        <p class="text-red-500 text-sm">{{ form.city.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control col-span-2">
+        <label class="label" for="id_medical_history">Medical History</label>
+        <textarea
+          name="medical_history"
+          id="id_medical_history"
+          class="textarea textarea-bordered w-3/4"
+        >
+{{ form.medical_history.value|default_if_none:'' }}</textarea
+        >
+        {% if form.medical_history.errors %}
+        <p class="text-red-500 text-sm">{{ form.medical_history.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_language">Language</label>
+        <input
+          type="text"
+          name="language"
+          id="id_language"
+          class="input input-bordered w-3/4"
+          value="{{ form.language.value|default_if_none:'' }}"
+        />
+        {% if form.language.errors %}
+        <p class="text-red-500 text-sm">{{ form.language.errors.as_text }}</p>
+        {% endif %}
+      </div>
+      <div class="form-control">
+        <label class="label" for="id_alternative_id">Alternative ID</label>
+        <input
+          type="text"
+          name="alternative_id"
+          id="id_alternative_id"
+          class="input input-bordered w-3/4"
+          value="{{ form.alternative_id.value|default_if_none:'' }}"
+        />
+        {% if form.alternative_id.errors %}
+        <p class="text-red-500 text-sm">{{ form.alternative_id.errors.as_text }}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="form-control mt-12 pt-6 flex justify-center">
+      <button type="submit" class="btn btn-primary w-1/3 mx-auto">
+      Save Patient
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}
